@@ -1,0 +1,80 @@
+/* Base styles (for mobile view) */
+.featureCard {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children (image and content) */
+    overflow: hidden;
+    margin: 1rem; /* Equal margin on all sides */
+    width: calc(100% - 2rem); /* Subtract the total horizontal margin from the width */
+    max-width: 100%; /* Ensure card won't exceed the width of the screen */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.featureImage {
+    width: 80%; /* Adjust the width as necessary */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits within its boundary */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.featureContent {
+    padding: 1rem; /* Add padding inside the content area */
+    text-align: center; /* Center the text on mobile */
+    width: 100%; /* Allow content to fill the width of the card */
+}
+
+/* Styles for larger screens (desktop view) */
+@media (min-width: 768px) {
+    .featureCard {
+        flex-direction: row; /* Side by side layout for image and content */
+        margin: 1rem; /* Equal margin on all sides */
+        width: calc(50% - 2rem); /* Adjust width for two cards per row with spacing between */
+        max-width: 640px; /* Max width for larger cards */
+    }
+
+    .featureImage {
+        width: 50%; /* Image takes half of the card width */
+        object-fit: cover; /* Image will cover the available area */
+        border-radius: 20px 0 0 20px; /* Rounded corners on the left side only */
+    }
+
+    .featureContent {
+        width: 50%; /* Content takes the other half of the card width */
+        text-align: left; /* Align text to the left for desktop */
+    }
+}
+
+
+.featureTitle {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.enrollButton {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.enrollButton:hover {
+    background-color: #0056b3;
+    /* A darker shade for hover state */
+}

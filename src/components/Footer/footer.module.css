@@ -1,0 +1,22 @@
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+  
+.footerContent {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.about, .links, .socials {
+    display: flex;
+    flex-direction: column;
+}
+
+.about h3, .links h3, .socials h3 {
+    margin-bottom: 0.5rem;
+}
