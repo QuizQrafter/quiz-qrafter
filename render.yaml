@@ -1,0 +1,7 @@
+services:
+- type: web
+  name: quizqrafter
+  runtime: static
+  rootDir: .
+  buildCommand: npm run build
+  staticPublishPath: ./build/
