@@ -4,25 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './containers/Auth/SignUp';
 import SignIn from './containers/Auth/SignIn';
 import Home from './pages/Home/Home';
-// import Dashboard from './pages/Dashboard/Dashboard'; 
-// import { Amplify, Auth } from 'aws-amplify';
-// import amplifyConfig from './aws-exports'; 
-// import amplifyconfig from "./amplifyconfiguration.json";
-
-
-// Amplify.configure(amplifyconfig);
+// import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
 
   // const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   // Check if user is authenticated when the app loads
-  //   Auth.currentAuthenticatedUser()
-  //     .then(currentUser => setUser(currentUser))
-  //     .catch(() => setUser(null)); // If there is no authenticated user, user is set to null
-  // }, []);
-
 
   return (
       <Router>
