@@ -1,7 +1,15 @@
 services:
-- type: web
-  name: quizqrafter
-  runtime: static
-  rootDir: ./frontend/
-  buildCommand: npm run build
-  staticPublishPath: ./build/
+    - type: web
+      name: quizqrafter-api
+      runtime: node
+      rootDir: ./backend/
+      healthCheckPath: /healthz
+      buildCommand: npm ci && npm run build
+      startCommand: npm run start
+      plan: free
+    - type: web
+      name: quizqrafter
+      runtime: static
+      rootDir: ./frontend/
+      buildCommand: npm run build
+      staticPublishPath: ./build/
