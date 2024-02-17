@@ -2,6 +2,6 @@ services:
 - type: web
   name: quizqrafter
   runtime: static
-  rootDir: .
+  rootDir: ./frontend/
   buildCommand: npm run build
   staticPublishPath: ./build/
