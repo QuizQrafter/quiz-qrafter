@@ -5,8 +5,7 @@ services:
       rootDir: ./backend/
       healthCheckPath: /healthz
       buildCommand: npm ci && npm run build
-      startCommand: npm run start
-      preDeployCommand: npx prisma migrate deploy
+      startCommand: npm run prisma:deploy && npm run start
       plan: free
       envVars:
           - key: DATABASE_URL
