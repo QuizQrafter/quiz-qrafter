@@ -11,14 +11,14 @@ const { REACT_APP_API_URL = "http://localhost:8080" } = process.env;
 const authService = new QuizQrafterAuthService(new URL(REACT_APP_API_URL));
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <AuthProvider service={authService}>
       <App />
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,10 +1,9 @@
 .button {
-    padding: 8px 16px;
-    border: none;
-    background-color: var(--button-bg-color, blue); /* default color */
-    color: white;
-    cursor: pointer;
-  }
-  
-  /* You can define other classes and states like :hover here */
-  
+  padding: 8px 16px;
+  border: none;
+  background-color: var(--button-bg-color, blue); /* default color */
+  color: white;
+  cursor: pointer;
+}
+
+/* You can define other classes and states like :hover here */

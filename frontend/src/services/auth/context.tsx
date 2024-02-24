@@ -96,7 +96,7 @@ export function useAuth() {
   const auth = useContext(AuthContext);
   if (auth === null)
     throw new Error(
-      "useAuth() may only be used within the context of a <AuthProvider> component."
+      "useAuth() may only be used within the context of a <AuthProvider> component.",
     );
   return auth;
 }
