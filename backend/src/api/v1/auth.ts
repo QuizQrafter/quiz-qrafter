@@ -88,7 +88,7 @@ router.get("/info", restrict, async (req, res) => {
 export function restrict(
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   // @ts-ignore
   if (request.session.userId) {

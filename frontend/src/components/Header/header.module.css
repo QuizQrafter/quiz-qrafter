@@ -1,93 +1,93 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
 }
 
 .logo,
 .logoMobile {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .navItem,
 .mobileMenuItem {
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #333;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
 }
 
 .desktopMenu {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .mobileMenuIcon {
-    display: none;
-    cursor: pointer;
-    font-size: 24px;
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
 }
 
 .mobileMenu {
-    display: flex;
-    flex-direction: column;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    z-index: 1000; /* High z-index to ensure it's above other content */
-    overflow-y: auto; /* Allows scrolling if content is taller than the screen */
-    padding: 0; /* Remove padding to use the full screen */
-    justify-content: flex-start; /* Align content to the top */
+  display: flex;
+  flex-direction: column;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 1000; /* High z-index to ensure it's above other content */
+  overflow-y: auto; /* Allows scrolling if content is taller than the screen */
+  padding: 0; /* Remove padding to use the full screen */
+  justify-content: flex-start; /* Align content to the top */
 }
 
 .mobileMenuHeader {
-    display: flex;
-    justify-content: space-between; /* Keeps logo and close button on opposite ends */
-    align-items: center;
-    padding: 10px 20px; /* Adjusted to add padding on the right */
-  }
+  display: flex;
+  justify-content: space-between; /* Keeps logo and close button on opposite ends */
+  align-items: center;
+  padding: 10px 20px; /* Adjusted to add padding on the right */
+}
 
-  .closeButton {
-    background: none;
-    border: none;
-    font-size: 24px; /* Size of the '×' character */
-    cursor: pointer;
-    padding: 10px; /* Larger clickable area */
-    margin: -10px; /* Offset the padding to keep the button tight to the corner */
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px; /* Size of the '×' character */
+  cursor: pointer;
+  padding: 10px; /* Larger clickable area */
+  margin: -10px; /* Offset the padding to keep the button tight to the corner */
 }
 
 .mobileNav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 1rem;
 }
 
 @media (max-width: 768px) {
-    .mobileMenuIcon {
-        display: block;
-    }
+  .mobileMenuIcon {
+    display: block;
+  }
 
-    .desktopMenu {
-        display: none;
-    }
+  .desktopMenu {
+    display: none;
+  }
 
-    .mobileMenu {
-        display: flex;
-        flex-direction: column;
-    }
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .logoLink {
-    color: #000;
-    /* or the color you prefer */
-    text-decoration: none;
-    /* Removes the underline from the link */
-    font-weight: bold;
-    /* Makes the text bold */
-    font-size: 1.5rem;
+  color: #000;
+  /* or the color you prefer */
+  text-decoration: none;
+  /* Removes the underline from the link */
+  font-weight: bold;
+  /* Makes the text bold */
+  font-size: 1.5rem;
 }

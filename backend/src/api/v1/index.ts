@@ -11,7 +11,7 @@ router.use(
     resave: false, // don't save session if unmodified
     saveUninitialized: false,
     secret: SESSION_SECRET,
-  })
+  }),
 );
 
 router.use("/auth", authRouter);
