@@ -8,6 +8,13 @@ services:
       startCommand: npm run prisma:deploy && npm run start
       plan: free
       envVars:
+          - key: SESSION_SECRET
+            generateValue: true # generates a base64-encoded 256-bit secret
+          - key: FRONTEND_URL
+            fromService:
+                type: web
+                name: quizqrafter
+                envVarKey: RENDER_EXTERNAL_URL
           - key: DATABASE_URL
             fromDatabase:
                 name: quizqrafterdb
@@ -18,6 +25,12 @@ services:
       rootDir: ./frontend/
       buildCommand: npm run build
       staticPublishPath: ./build/
+      envVars:
+          - key: REACT_APP_API_URL
+            fromService:
+                type: web
+                name: quizqrafter-api
+                envVarKey: RENDER_EXTERNAL_URL
 
 databases:
     - name: quizqrafterdb

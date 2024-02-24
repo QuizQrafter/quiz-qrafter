@@ -1,13 +1,21 @@
-import React from 'react';
-import './dashboard.module.css';
+import React from "react";
+import { useAuth } from "../../services/auth";
+import "./dashboard.module.css";
 
 const Dashboard: React.FC = () => {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            {/* Add your dashboard content here */}
-        </div>
-    );
+  const { signOut } = useAuth();
+
+  const handleSignOut = () => {
+    signOut();
+  };
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <button onClick={handleSignOut}>Logout</button>
+      {/* Add your dashboard content here */}
+    </div>
+  );
 };
 
 export default Dashboard;
