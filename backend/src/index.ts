@@ -4,12 +4,17 @@ import express from "express";
 import prisma from "./database";
 import v1Router from "./api/v1";
 
-const { PORT = "8080" } = process.env;
+const { PORT = "8080", FRONTEND_URL } = process.env;
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    credentials: true,
+  }),
+);
 
 app.get("/healthz", (_req, res) => {
   return res.sendStatus(200);

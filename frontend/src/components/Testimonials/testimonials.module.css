@@ -1,53 +1,53 @@
 .testimonials {
-    background-color: #f7f7f7;
-    padding: 4rem 2rem;
-    text-align: center;
+  background-color: #f7f7f7;
+  padding: 4rem 2rem;
+  text-align: center;
 }
 
 .heading {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
 }
 
 .slide {
-    width: 100%;
+  width: 100%;
 }
 
 .testimonialList {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .testimonialImage {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid black;
-    margin-right: 1rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid black;
+  margin-right: 1rem;
 }
 
 .testimonialContent {
-    text-align: left;
+  text-align: left;
 }
 
 .testimonial {
-    background-color: white;
-    border-left: 4px solid #007bff;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-width: 10%;
+  background-color: white;
+  border-left: 4px solid #007bff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-width: 10%;
 }
 
 .text {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
 }
 
 .author {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }

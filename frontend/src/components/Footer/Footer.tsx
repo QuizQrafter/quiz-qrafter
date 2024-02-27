@@ -1,6 +1,6 @@
 // Footer.tsx
-import React from 'react';
-import styles from './footer.module.css';
+import React from "react";
+import styles from "./footer.module.css";
 
 const Footer = () => {
   return (
@@ -26,4 +26,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

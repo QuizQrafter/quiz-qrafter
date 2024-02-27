@@ -1,111 +1,108 @@
 .authContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f8f8;
 }
 
 .authCard {
-    background: #FFFFFF;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    position: relative;
-    /* For absolute positioning of the logo */
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  /* For absolute positioning of the logo */
 }
 
 .authLogo {
-    top: -50px;
-    left: 50%;
-    max-width: 50px;
+  top: -50px;
+  left: 50%;
+  max-width: 50px;
 }
 
 .authTitle {
-    margin-bottom: 2rem;
-    font-weight: 500;
-    /* Adjust font-weight as needed */
-    color: #333;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  /* Adjust font-weight as needed */
+  color: #333;
 }
 
 .authInput {
-    width: 100%;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .authButton {
-    width: 100%;
-    padding: 1rem;
-    background-color: #ff8c00;
-    /* Your brand's color */
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    margin-bottom: 2rem;
-    font-weight: 600;
+  width: 100%;
+  padding: 1rem;
+  background-color: #ff8c00;
+  /* Your brand's color */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
 .authTermPolicy {
-    font-size: 0.875rem;
-    color: #666;
-    padding-top: 0.5%;
-    text-align: center;
+  font-size: 0.875rem;
+  color: #666;
+  padding-top: 0.5%;
+  text-align: center;
 }
 
-
 .authFooter {
-    font-size: 0.875rem;
-    color: #666;
+  font-size: 0.875rem;
+  color: #666;
 }
 
 .authToggle {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 600;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .authHeader {
-    position: absolute;
-    top: 2%;
-    left: 5%;
-    transform: translateX(-50%);
+  position: absolute;
+  top: 2%;
+  left: 5%;
+  transform: translateX(-50%);
 }
 
-
-
 @media (max-width: 768px) {
-    .authCard {
-        box-shadow: none;
-        border-radius: 0;
-        background: #FFFFFF;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 80%;
-        max-width: 70%;
-        text-align: center;
-        position: relative;
-    }
+  .authCard {
+    box-shadow: none;
+    border-radius: 0;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 70%;
+    text-align: center;
+    position: relative;
+  }
 
-    .authHeader {
-        position: absolute;
-        top: 2%;
-        left: 10%;
-        transform: translateX(-50%);
-    }
+  .authHeader {
+    position: absolute;
+    top: 2%;
+    left: 10%;
+    transform: translateX(-50%);
+  }
 
-    .authLogo {
-        top: -50px;
-        left: 50%;
-        max-width: 50px;
-    }
+  .authLogo {
+    top: -50px;
+    left: 50%;
+    max-width: 50px;
+  }
 }

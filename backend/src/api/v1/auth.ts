@@ -67,19 +67,28 @@ router.post("/logout", (request, response) => {
   });
 });
 
-router.get("/info", restrict, (req, res) => {
+router.get("/info", restrict, async (req, res) => {
   // @ts-ignore
   const userId = req.session.userId;
 
-  res.status(200).json({
-    id: userId,
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (user === null) return res.sendStatus(404 /* Not Found */);
+
+  return res.status(200).json({
+    email: user.email,
+    fullname: user.fullname,
   });
 });
 
 export function restrict(
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   // @ts-ignore
   if (request.session.userId) {
