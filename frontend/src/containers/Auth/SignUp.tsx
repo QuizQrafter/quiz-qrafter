@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../assets/quiz_qrafter_logo_dark.svg"; // Use a regular image tag for SVGs
+import Logo from "../../assets/quiz_qrafter_logo_dark.svg";
 import { useAuth } from "../../services/auth";
 import styles from "./auth.module.css";
-import buttonStyles from "./authButton.module.css";
-import { check } from "prettier";
 
 const SignUp = () => {
   const { signUp } = useAuth();
@@ -14,17 +12,16 @@ const SignUp = () => {
   const [firstname,setFirstname] = useState("");
   const [lastname,setLastname] = useState("");
   const [error,setError] = useState<Record<string, string>>({}); 
-  const [buttonClass,setButtonStyle] = useState("");
   const navigate = useNavigate();
   const [isValid, setValidation] = useState(false);
    
 
-  useEffect(() => { //concatenate first and last name
+  useEffect(() => {
     setFullname(`${firstname} ${lastname}`);
   }, [firstname, lastname]);
 
   const checkPwd = (password: string): boolean => {
-    const regex =/^(?=.*[A-Z]).{8,}$/;  //check if the password contains at least 8 characters with at least 1 upper case
+    const regex =/^(?=.*[A-Z]).{8,}$/;
     return regex.test(password);
   };
 
@@ -90,7 +87,6 @@ const SignUp = () => {
         setValidation(true);
         navigate("/login", { replace: true });
         setError({});
-        console.log(fullname);
 
       } catch (error:any) {
         setError({ general: error.message});
@@ -119,7 +115,7 @@ const SignUp = () => {
               value = {firstname}
             />
 
-            {error && <p style={{ marginTop: "-15px", marginBottom: "1px",padding: "3px", fontSize: "0.8rem", color: "red",textAlign:"left" }}>{error.firstname}</p>}
+            {error && <p className={styles.authError}>{error.firstname}</p>}
             <input
               type="text"
               className={styles.authInput}
@@ -128,7 +124,7 @@ const SignUp = () => {
               value = {lastname}
             />
 
-            {error && <p style={{ marginTop: "-15px", marginBottom: "1px",padding: "3px", fontSize: "0.8rem", color: "red",textAlign:"left" }}>{error.lastname}</p>}
+            {error && <p className={styles.authError}>{error.lastname}</p>}
             <input
               type="text"
               className={styles.authInput}
@@ -137,7 +133,7 @@ const SignUp = () => {
               value = {email}
             />
 
-            {error && <p style={{ marginTop: "-15px", marginBottom: "1px",padding: "3px", fontSize: "0.8rem", color: "red",textAlign:"left" }}>{error.email}</p>}
+            {error && <p className={styles.authError}>{error.email}</p>}
             <input
               type="password"
               className={styles.authInput}
@@ -146,10 +142,10 @@ const SignUp = () => {
               value = {password}        
             />
 
-            {error && <p style={{ marginTop: "-15px", marginBottom: "1px",padding: "3px", fontSize: "0.8rem", color: "red",textAlign:"left" }}>{error.password}</p>}
+            {error && <p className={styles.authError}>{error.password}</p>}
             <button 
             type="submit" 
-            className={`${buttonStyles.authButton} ${isValid ? buttonStyles.authButton : buttonStyles.disabledButton}`}
+            className={`${styles.authButton} ${isValid ? styles.authButton : styles.disabledButton}`}
             disabled={!isValid}
             >
               Sign up

@@ -9,6 +9,7 @@ import { QuizQrafterAuthService } from "./services/auth/quizQrafterAuthService";
 
 const { REACT_APP_API_URL = "http://localhost:8080" } = process.env;
 const authService = new QuizQrafterAuthService(new URL(REACT_APP_API_URL));
+// const authService = new LocalStorageAuthService();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
