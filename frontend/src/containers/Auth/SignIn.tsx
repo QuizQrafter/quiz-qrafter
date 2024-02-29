@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/quiz_qrafter_logo_dark.svg"; // Use a regular image tag for SVGs
 import { useAuth } from "../../services/auth";
 import styles from "./auth.module.css";
-import buttonStyles from "./authButton.module.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
