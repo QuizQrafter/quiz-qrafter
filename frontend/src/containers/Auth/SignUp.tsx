@@ -162,7 +162,7 @@ const SignUp = () => {
         </div>
         
         <div className={styles.authTermPolicy}>
-          By Loging up, you agree to Quiz Qrafter's{" "}
+          By signing up, you agree to Quiz Qrafter's{" "}
           <Link to="/terms">Terms of Use</Link> and{" "}
           <Link to="/privacy">Privacy Policy</Link>.
         </div>

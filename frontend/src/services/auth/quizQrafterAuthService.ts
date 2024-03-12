@@ -31,7 +31,7 @@ export class QuizQrafterAuthService implements AuthService {
     });
   }
 
-  async Login(credentials: LoginCredentials): Promise<User> {
+  async login(credentials: LoginCredentials): Promise<User> {
     const response = await fetch(new URL("/api/v1/auth/login", this.baseURL), {
       method: "POST",
       credentials: "include",

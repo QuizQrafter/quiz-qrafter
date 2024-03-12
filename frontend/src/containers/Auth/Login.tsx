@@ -123,7 +123,7 @@ const Login = () => {
           </footer>
         </div>
         <footer className={styles.authTermPolicy}>
-          By Logging up, you agree to Quiz Qrafter's{" "}
+          By signing up, you agree to Quiz Qrafter's{" "}
           <Link to="/terms">Terms of Use</Link> and{" "}
           <Link to="/privacy">Privacy Policy</Link>.
         </footer>
