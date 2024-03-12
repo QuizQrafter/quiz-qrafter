@@ -22,7 +22,7 @@ export class LocalStorageAuthService implements AuthService {
     localStorage.setItem(key, value);
   }
 
-  async signIn(credentials: LoginCredentials): Promise<User> {
+  async Login(credentials: LoginCredentials): Promise<User> {
     const key = this.makeKey(credentials.email, credentials.password);
     const value = localStorage.getItem(key);
     if (value === null) throw new Error("Invalid email and password");
