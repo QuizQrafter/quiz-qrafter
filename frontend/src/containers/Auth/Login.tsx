@@ -5,7 +5,7 @@ import { useAuth } from "../../services/auth";
 import styles from "./auth.module.css";
 
 const Login = () => {
-  const { authenticated, Login } = useAuth();
+  const { authenticated, login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error,setError] = useState<Record<string, string>>({}); 
@@ -58,7 +58,7 @@ const Login = () => {
 
     if(isValid){
       try {
-        Login(email, password);
+        login(email, password);
         setValidation(true);
         setError({});
 
