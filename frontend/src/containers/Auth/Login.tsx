@@ -4,8 +4,8 @@ import Logo from "../../assets/quiz_qrafter_logo_dark.svg"; // Use a regular ima
 import { useAuth } from "../../services/auth";
 import styles from "./auth.module.css";
 
-const SignIn = () => {
-  const { authenticated, signIn } = useAuth();
+const Login = () => {
+  const { authenticated, login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error,setError] = useState<Record<string, string>>({}); 
@@ -52,13 +52,13 @@ const SignIn = () => {
     checkValid();
   }
 
-  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     checkValid();
 
     if(isValid){
       try {
-        signIn(email, password);
+        login(email, password);
         setValidation(true);
         setError({});
 
@@ -84,7 +84,7 @@ const SignIn = () => {
         <div className={styles.authCard}>
           <h1 className={styles.authTitle}>Welcome back</h1>
 
-          <form action ="" onSubmit = {handleSignIn}>
+          <form action ="" onSubmit = {handleLogin}>
 
           <input
             type="email"
@@ -110,6 +110,11 @@ const SignIn = () => {
             Log in
           </button>
           </form>
+
+          <Link to="/forgot-password" className={styles.authToggle}>
+              Forgot Password
+            </Link>
+
           <footer className={styles.authFooter}>
             Don't have an account?{" "}
             <Link to="/signup" className={styles.authToggle}>
@@ -127,4 +132,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;

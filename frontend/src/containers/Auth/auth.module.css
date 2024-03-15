@@ -94,6 +94,16 @@
   color: #f8d4a7;
 }
 
+.authMessage {
+  color: #43ac29;
+  text-align: center;
+}
+
+.authMessageBad {
+  color: #d32507;
+  text-align: center;
+}
+
 .disabledButton{
   background-color: #ff9f2a;
   color: #f8d4a7;
