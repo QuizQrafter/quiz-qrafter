@@ -1,7 +1,7 @@
 export interface AuthService {
   currentUser(): Promise<User | null>;
   signUp(info: SignUpInfo): Promise<void>;
-  signIn(credentials: LoginCredentials): Promise<User>;
+  login(credentials: LoginCredentials): Promise<User>;
   signOut(): Promise<void>;
 }
 

@@ -7,7 +7,7 @@ type AuthContextValue = {
   error: Error | null;
   authenticated: boolean;
   signUp(email: string, password: string, fullname: string): void;
-  signIn(email: string, password: string): void;
+  login(email: string, password: string): void;
   signOut(): void;
 };
 
@@ -46,10 +46,10 @@ export function AuthProvider({ service, children }: AuthProviderProps) {
       .finally(() => setLoading(false));
   };
 
-  const signIn = (email: string, password: string) => {
+  const login = (email: string, password: string) => {
     setLoading(true);
     service
-      .signIn({ email, password })
+      .login({ email, password })
       .then((user) => {
         setUser(user);
         setError(null);
@@ -84,7 +84,7 @@ export function AuthProvider({ service, children }: AuthProviderProps) {
         error,
         authenticated: user !== null,
         signUp,
-        signIn,
+        login,
         signOut,
       }}
       children={children}

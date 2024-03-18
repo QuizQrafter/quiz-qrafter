@@ -14,6 +14,7 @@ const { REACT_APP_API_URL = "http://localhost:8080" } = process.env;
 const apiURL = new URL(REACT_APP_API_URL);
 
 const authService = new QuizQrafterAuthService(apiURL);
+// const authService = new LocalStorageAuthService();
 const documentService = new QuizQrafterDocumentService(apiURL);
 
 const root = ReactDOM.createRoot(
