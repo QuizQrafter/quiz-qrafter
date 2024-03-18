@@ -1,8 +1,8 @@
 import cors from "cors";
 import express from "express";
 
-import prisma from "./database";
 import v1Router from "./api/v1";
+import prisma from "./database";
 
 const { PORT = "8080", FRONTEND_URL } = process.env;
 
