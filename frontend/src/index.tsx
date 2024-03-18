@@ -6,9 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./services/auth";
 // import { LocalStorageAuthService } from "./services/auth/localStorageAuthService";
 import { QuizQrafterAuthService } from "./services/auth/quizQrafterAuthService";
+import { DocumentProvider } from "./services/document/context";
+// import { LocalStorageDocumentService } from "./services/document/localStorageDocumentService";
+import { QuizQrafterDocumentService } from "./services/document/quizQrafterDocumentService";
 
 const { REACT_APP_API_URL = "http://localhost:8080" } = process.env;
-const authService = new QuizQrafterAuthService(new URL(REACT_APP_API_URL));
+const apiURL = new URL(REACT_APP_API_URL);
+
+const authService = new QuizQrafterAuthService(apiURL);
+const documentService = new QuizQrafterDocumentService(apiURL);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -16,7 +22,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AuthProvider service={authService}>
-      <App />
+      <DocumentProvider service={documentService}>
+        <App />
+      </DocumentProvider>
     </AuthProvider>
   </React.StrictMode>,
 );
