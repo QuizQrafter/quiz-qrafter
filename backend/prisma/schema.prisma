@@ -14,10 +14,22 @@ datasource db {
 }
 
 model User {
-    id       Int    @id @default(autoincrement())
-    email    String @unique
-    fullname String
-    password String
+    id        Int        @id @default(autoincrement())
+    email     String     @unique
+    fullname  String
+    password  String
+    documents Document[]
 
     @@map("users")
+}
+
+model Document {
+    id               Int    @id @default(autoincrement())
+    size             Int
+    transcriptionURL String
+    rawURL           String
+    userId           Int
+    user             User   @relation(fields: [userId], references: [id])
+
+    @@map("documents")
 }
