@@ -19,6 +19,14 @@ services:
             fromDatabase:
                 name: quizqrafterdb
                 property: connectionString
+          - key: GCLOUD_PROJECT_ID
+            sync: false
+          - key: GCLOUD_LOCATION
+            value: us
+          - key: GCLOUD_DOCUMENT_PROCESSOR_ID
+            sync: false
+          - key: GCLOUD_KEY_FILEPATH
+            value: /etc/secrets/gcloud-key.json
     - type: web
       name: quizqrafter
       runtime: static
