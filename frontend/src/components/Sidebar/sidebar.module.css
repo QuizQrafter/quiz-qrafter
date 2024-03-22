@@ -1,0 +1,34 @@
+.sidebar {
+    /* display: flex; */
+    flex-direction: row;
+    width: 200px;
+    height: 100vh; 
+    background-color: #7a84f9; 
+    text-align: center;
+    }
+    
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+    
+.sidebar ul li {
+    height: auto;
+      
+}
+    
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+}
+    
+.sidebar ul li a:hover {
+    flex-direction: row;
+    text-align: center;
+    background-color: #ddd;
+}
