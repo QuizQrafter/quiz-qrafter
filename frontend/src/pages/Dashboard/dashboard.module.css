@@ -1,0 +1,104 @@
+.dashboardLogo {
+    height: auto; 
+    max-width: 100px;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 0.5rem 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.logoMenu, .headerContent {
+    display: flex;
+    align-items: center;
+}
+
+.headerContent {
+    gap: 20px;
+}
+.menuButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.email {
+    padding-right: none;
+}
+
+.logoutButton {
+    margin: 0 20px;
+    background-color: #ff8c00;
+    color: white;
+    padding: 7px 14px;
+    font-size: 11px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    
+}
+
+.logoutButton:hover,
+.logoutButton:focus {
+    color: #ffffff;
+    background-color: #ff8c00;
+    border-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logoutButton:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.mainContent {
+    padding-top: 60px;
+    display: flex;
+    flex-grow: 1;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 1rem;
+    margin-left: 0;
+    transition: margin-left 0.3s;
+}
+
+
+.contentWithSidebar {
+    margin-left: 250px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0.5rem;
+    }
+    .logoutButton {
+        margin: 0 10px;
+    }
+    .dashboardLogo {
+        height: 40px;
+    }
+
+    .contentWithSidebar {
+        margin-left: 200px;
+    }
+}

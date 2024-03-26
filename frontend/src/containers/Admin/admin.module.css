@@ -1,0 +1,132 @@
+/* General Styles */
+:root {
+    --primary-color: #5d93e1;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --button-hover-color: #507dbc;
+  }
+  
+  /* Quiz Container */
+  .quizContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  /* Quiz Title */
+  .quizTitle {
+    color: var(--text-color);
+    margin-bottom: 20px;
+  }
+  
+  .successText {
+    color: #28a745; /* Bootstrap's success green, or choose your own */
+    margin: 10px 0;
+  }
+  
+
+  /* Quiz Form */
+  .quizForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Input Fields */
+  .quizInput {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Special styles for file input and its label */
+  .quizFileInput {
+    opacity: 0;
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    z-index: -1;
+  }
+  
+  .quizFileInputLabel {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  
+  .quizFileInputLabel:hover {
+    background-color: var(--button-hover-color);
+  }
+  
+  /* Submit Button */
+  .quizSubmitButton {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .quizSubmitButton:hover {
+    background-color: var(--button-hover-color);
+  }
+  
+  /* Error Text */
+  .errorText {
+    color: #ff6b6b;
+    margin: 10px 0;
+  }
+  
+  /* Responsive Design Adjustments */
+  @media (max-width: 768px) {
+    .quizContainer {
+      margin: 10px;
+      padding: 15px;
+      width: 90%; /* It takes up more of the screen on smaller devices */
+      box-sizing: border-box; /* Include padding in width */
+    }
+  
+    .quizTitle {
+      font-size: 1.25rem; /* Adjust font size for smaller screens */
+    }
+  
+    .quizFileInputLabel,
+    .quizSubmitButton {
+      padding: 8px 12px; /* Adjust padding for smaller screens */
+      font-size: 0.875rem; /* Adjust font size for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .quizContainer {
+      padding: 10px;
+      margin: 5px;
+      width: 95%; /* Allow even more width on very small screens */
+    }
+  
+    .quizTitle {
+      font-size: 1rem; /* Further adjust font size for very small screens */
+    }
+  
+    .quizFileInputLabel,
+    .quizSubmitButton {
+      padding: 8px 10px; /* Smaller padding for very small screens */
+      font-size: 0.85rem; /* Smaller font size for very small screens */
+    }
+  }
+  

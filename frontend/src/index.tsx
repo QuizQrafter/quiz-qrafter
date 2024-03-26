@@ -9,6 +9,7 @@ import { QuizQrafterAuthService } from "./services/auth/quizQrafterAuthService";
 import { DocumentProvider } from "./services/document/context";
 // import { LocalStorageDocumentService } from "./services/document/localStorageDocumentService";
 import { QuizQrafterDocumentService } from "./services/document/quizQrafterDocumentService";
+import { ThemeProvider } from "./containers/Admin/ThemeContext";
 
 const { REACT_APP_API_URL = "http://localhost:8080" } = process.env;
 const apiURL = new URL(REACT_APP_API_URL);
@@ -24,7 +25,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider service={authService}>
       <DocumentProvider service={documentService}>
+      <ThemeProvider>
         <App />
+      </ThemeProvider>
       </DocumentProvider>
     </AuthProvider>
   </React.StrictMode>,
