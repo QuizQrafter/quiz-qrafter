@@ -61,13 +61,13 @@ const Header = () => {
             </button>
           </div>
           <nav className={styles.mobileNav}>
-            <Link
+            {/* <Link
               to="/"
               className={styles.mobileMenuItem}
               onClick={toggleMobileMenu}
             >
               Home
-            </Link>
+            </Link> */}
             <Link
               to="/login"
               className={styles.mobileMenuItem}
@@ -89,9 +89,9 @@ const Header = () => {
 
       {/* Desktop Menu */}
       <nav className={styles.desktopMenu}>
-        <Link to="/" className={styles.navItem}>
+        {/* <Link to="/" className={styles.navItem}>
           Home
-        </Link>
+        </Link> */}
         <Link to="/login" className={styles.navItem}>
           Log in
         </Link>

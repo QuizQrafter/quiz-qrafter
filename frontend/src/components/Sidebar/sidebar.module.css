@@ -1,34 +1,82 @@
 .sidebar {
-    /* display: flex; */
-    flex-direction: row;
-    width: 200px;
-    height: 100vh; 
-    background-color: #7a84f9; 
-    text-align: center;
-    }
-    
-.sidebar ul {
+    width: 250px;
+    transition: all 0.3s;
+    transform: translateX(-100%);
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding-top: 30px;
+  }
+  
+  .open {
+    transform: translateX(0);
+  }  
+  
+  .nav {
+    padding: 1rem;
+  }
+  
+  .nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    text-align: center;
-}
-    
-.sidebar ul li {
-    height: auto;
-      
-}
-    
-.sidebar ul li a {
-    display: block;
-    padding: 10px;
+  }
+  
+  .nav li a {
+    color: white;
     text-decoration: none;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 200px;
+    }
+  }
+  
+  .closeButton {
+    border: none;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  .nav li {
+    padding: 0.5rem 0;
+    cursor: pointer;
+  }
+  
+  .nav li.active {
+    border-radius: 20px;
+    border-color: black;
+  }
+  
+  .nav li button {
+    background: none;
+    border: none;
     color: inherit;
-    text-align: center;
-}
-    
-.sidebar ul li a:hover {
-    flex-direction: row;
-    text-align: center;
-    background-color: #ddd;
-}
+    text-align: left;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav li.active button {
+    background-color: #4a4e69;
+    color: #f2e9e4;
+    border-radius: 4px;
+  }
+  
+  .nav li:not(.active) button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav li button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  

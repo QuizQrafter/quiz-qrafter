@@ -1,27 +1,41 @@
 import React from 'react';
-import { Link,useLocation } from 'react-router-dom';
 import styles from './sidebar.module.css';
-import logo from "../../assets/courses.png";
+import { useTheme } from '../../containers/Admin/ThemeContext';
 
+const Sidebar: React.FC<{
+    isOpen: boolean,
+    closeSidebar: () => void,
+    activeMenu: 'quiz' | 'settings',
+    setActiveMenu: (menu: 'quiz' | 'settings') => void
+}> = ({ isOpen, closeSidebar, activeMenu, setActiveMenu }) => {
 
+    const { theme } = useTheme();
+    const themeColors = {
+        light: '#7a84f9',
+        dark: '#808080'
+    };
 
-const Sidebar: React.FC = () => {
+    const currentColor = themeColors[theme];
 
-    const currPage = useLocation();
-    
+    const handleMenuClick = (menu: 'quiz' | 'settings') => {
+        setActiveMenu(menu);
+    };
+
     return (
-        <div className={styles.sidebar}>
-            <img src = {logo} alt = "logo"></img>
-            <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/login">Sign in</Link>
-                </li>
-            </ul>
-        </div>
+        <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`} style={{ backgroundColor: currentColor }}>
+            <button className={styles.closeButton} onClick={closeSidebar}>×</button>
+            <nav className={styles.nav}>
+                <ul>
+                    <li className={activeMenu === 'quiz' ? styles.active : ''} onClick={() => handleMenuClick('quiz')}>
+                        <button>Quiz</button>
+                    </li>
+                    <li className={activeMenu === 'settings' ? styles.active : ''} onClick={() => handleMenuClick('settings')}>
+                        <button>Settings</button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
     );
-}
+};
 
 export default Sidebar;
