@@ -4,10 +4,13 @@ import styles from './admin.module.css';
 
 const Quiz = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const { upload, loading, error } = useDocumentAPI();
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files ? event.target.files[0] : null;
     setFile(selectedFile);
+    setFileName(selectedFile ? selectedFile.name : null);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,6 +39,7 @@ const Quiz = () => {
           onChange={handleFileChange}
           accept=".pdf, .docx, .txt"
         />
+        {fileName && <p className={styles.selectedFileName}>Selected file: {fileName}</p>}
         <button type="submit" className={styles.quizSubmitButton} disabled={loading}>
           {loading ? 'Uploading...' : 'Upload Quiz'}
         </button>
