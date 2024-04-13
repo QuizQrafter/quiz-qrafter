@@ -16,9 +16,12 @@
         "@google-cloud/storage": "^7.8.0",
         "@prisma/client": "^5.10.1",
         "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
         "express": "^4.18.2",
         "express-session": "^1.18.0",
+        "md-to-pdf": "^5.2.4",
         "multer": "^1.4.5-lts.1",
+        "openai": "^4.32.1",
         "prisma": "^5.10.1"
     },
     "devDependencies": {

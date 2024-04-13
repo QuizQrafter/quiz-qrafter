@@ -65,7 +65,6 @@ router.post(
         rawURL: rawFile.cloudStorageURI.href,
         size: size,
         transcriptionURL: transcriptedFile.cloudStorageURI.href,
-
         userId: userId,
       },
     });
