@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { NextFunction, Request, Response, Router } from "express";
 import prisma from "../../database";
 
@@ -14,7 +15,7 @@ router.post("/signup", async (request, response) => {
     const user = await prisma.user.create({
       data: {
         email: email,
-        password: password,
+        password: await hashPassword(password),
         fullname: fullname,
       },
     });
@@ -42,7 +43,7 @@ router.post("/login", async (request, response) => {
       where: { email: email },
     });
 
-    if (user === null || user.password !== password) {
+    if (user === null || !(await verifyPassword(password, user.password))) {
       return response.sendStatus(404 /* Not Found */);
     }
 
@@ -116,6 +117,17 @@ export function restrict(
   } else {
     return response.sendStatus(401 /* Unauthorized */);
   }
+}
+
+async function hashPassword(plainPassword: string): Promise<string> {
+  return await bcrypt.hash(plainPassword, 10);
+}
+
+async function verifyPassword(
+  plainPassword: string,
+  hashedPassword: string,
+): Promise<boolean> {
+  return await bcrypt.compare(plainPassword, hashedPassword);
 }
 
 export default router;
