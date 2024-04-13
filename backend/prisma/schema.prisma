@@ -30,6 +30,16 @@ model Document {
     rawURL           String
     userId           Int
     user             User   @relation(fields: [userId], references: [id])
+    quiz             Quiz?
 
     @@map("documents")
+}
+
+model Quiz {
+    id         Int      @id @default(autoincrement())
+    urlPdf     String
+    document   Document @relation(fields: [documentId], references: [id])
+    documentId Int      @unique
+
+    @@map("quizzes")
 }

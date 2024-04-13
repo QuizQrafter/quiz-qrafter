@@ -27,6 +27,8 @@ services:
             sync: false
           - key: GCLOUD_KEY_FILEPATH
             value: /etc/secrets/gcloud-key.json
+          - key: OPENAI_API_KEY
+            sync: false
     - type: web
       name: quizqrafter
       runtime: static
