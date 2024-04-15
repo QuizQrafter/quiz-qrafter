@@ -10,6 +10,7 @@ const { PORT = "8080", FRONTEND_URL } = process.env;
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(
   cors({
     origin: FRONTEND_URL,

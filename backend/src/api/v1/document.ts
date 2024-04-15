@@ -11,7 +11,6 @@ const {
   GCLOUD_DOCUMENT_PROCESSOR_ID,
   GCLOUD_KEY_FILEPATH,
 } = process.env;
-
 const router = Router();
 
 const multerMiddleware = multer({ storage: multer.memoryStorage() });
