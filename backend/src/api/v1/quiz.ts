@@ -4,6 +4,7 @@ import mdToPdf from "md-to-pdf";
 import OpenAI from "openai";
 import prisma from "../../database";
 import { restrict } from "./auth";
+import { decode } from "punycode";
 
 const { GCLOUD_KEY_FILEPATH } = process.env;
 
@@ -148,6 +149,59 @@ router.get("/download/:filename", restrict, async (req, res) => {
     res.setHeader("Content-disposition", "attachment; filename=quiz.pdf");
     res.setHeader("Content-type", "application/pdf");
     res.status(200 /* OK */).send(pdfQuiz);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
+router.delete("/delete/:filename", restrict, async (req, res) => {
+  try {
+    // @ts-ignore
+    const userId = req.session.userId;
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (user === null) {
+      // user does not exist
+      console.error(`User-${userId} does not exist`);
+      return res.sendStatus(401 /* Unauthorized */);
+    }
+    const filename = decodeURIComponent(req.params.filename);
+    const storage = new Storage({ keyFile: GCLOUD_KEY_FILEPATH! });
+    const bucket = storage.bucket("quizqrafter-documents");
+    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
+    const dbDoc = await prisma.document.findFirst({
+      where: {
+        transcriptionURL: transcriptedFile.cloudStorageURI.href,
+      },
+    });
+    if (dbDoc === null) {
+      console.error(`Document does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
+    }
+    const dbQuiz = await prisma.quiz.findUnique({
+      where: {
+        documentId: dbDoc.id,
+      },
+    });
+    if (dbQuiz === null) {
+      console.error(`Quiz does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
+    }
+    const fname = dbQuiz.urlPdf.replace("gs://quizqrafter-quizzes/", ""); // eg. u1-note.pdf-quiz.pdf
+    const [response] = await storage
+      .bucket("quizqrafter-quizzes")
+      .file(fname)
+      .delete();
+
+    await prisma.quiz.delete({
+      where: {
+        id: dbQuiz.id
+      }
+    })
+
+    return res.sendStatus(response.statusCode)
+
+
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
