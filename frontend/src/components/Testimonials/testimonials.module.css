@@ -1,13 +1,15 @@
 .testimonials {
-  background-color: #f7f7f7;
+  background-color: #bdecff;
   padding: 4rem 2rem;
   text-align: center;
 }
 
 .heading {
+  text-align: left;
+  margin-left: 4rem;
   font-size: 2rem;
   color: #333;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .slide {
