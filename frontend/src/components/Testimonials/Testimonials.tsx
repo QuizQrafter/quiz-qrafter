@@ -51,7 +51,7 @@ const Testimonials = () => {
 
   return (
     <section className={styles.testimonials}>
-      <h2 className={styles.heading}>Testimonials</h2>
+      <h2 className={styles.heading}>What students say</h2>
       <Slider {...settings}>
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} className={styles.slide}>

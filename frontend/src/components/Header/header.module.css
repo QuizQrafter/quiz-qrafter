@@ -3,7 +3,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fff;
+  background-color: #00045F;
+}
+
+.loginSignupButton {
+  position: relative;
+  background-color: #000000;
+  border: none;
+  border-radius: 4rem;
+  padding: 1rem 2rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .logo,
@@ -11,11 +23,41 @@
   font-size: 24px;
 }
 
-.navItem,
+.navItem{
+  position: relative;
+  background-color: #497ccdc6;
+  border:solid;
+  border-color: #b1bef7;
+  border-radius: 2rem;
+  border-width: 1.4px;
+  padding: 0.5rem 1.5rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 2;
+  margin-right: 0.5rem;
+}
+
+.navItem:hover{
+  box-shadow: 0 12px 12px rgba(38, 52, 72, 0.274);  
+  transform: translateY(5px);
+  background-color: #ff8c00;
+}
+
 .mobileMenuItem {
+  width: 5000px;
   padding: 10px 15px;
+  margin-top: 1rem;
   text-decoration: none;
   color: #333;
+  font-weight: 500;
+  border-bottom: 1px solid #707070; 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.mobileMenuItem:hover{
+  transform: translateX(5px);
 }
 
 .desktopMenu {
@@ -27,8 +69,13 @@
   display: none;
   cursor: pointer;
   font-size: 24px;
+  color: #e0e4ed;
+  transition: transform 0.3s ease;
 }
 
+.mobileMenuIcon:hover{
+  transform: translateY(5px);
+}
 .mobileMenu {
   display: flex;
   flex-direction: column;
@@ -37,11 +84,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #fff;
+  background-color: #93b9ff;
   z-index: 1000; /* High z-index to ensure it's above other content */
   overflow-y: auto; /* Allows scrolling if content is taller than the screen */
   padding: 0; /* Remove padding to use the full screen */
   justify-content: flex-start; /* Align content to the top */
+  transition: transform 0.3s ease;
+}
+
+.mobileMenu.active {
+  transform: translateX(0);
 }
 
 .mobileMenuHeader {
@@ -54,12 +106,16 @@
 .closeButton {
   background: none;
   border: none;
-  font-size: 24px; /* Size of the '×' character */
+  font-size: 30px; /* Size of the '×' character */
   cursor: pointer;
   padding: 10px; /* Larger clickable area */
   margin: -10px; /* Offset the padding to keep the button tight to the corner */
+  transition: transform 0.3s;
 }
 
+.closeButton:hover{
+  transform: rotate(180deg);
+}
 .mobileNav {
   display: flex;
   flex-direction: column;
@@ -83,7 +139,17 @@
 }
 
 .logoLink {
-  color: #000;
+  color: #e0e4ed;
+  /* or the color you prefer */
+  text-decoration: none;
+  /* Removes the underline from the link */
+  font-weight: bold;
+  /* Makes the text bold */
+  font-size: 1.5rem;
+}
+
+.mobileLogoLink {
+  color: #333;
   /* or the color you prefer */
   text-decoration: none;
   /* Removes the underline from the link */

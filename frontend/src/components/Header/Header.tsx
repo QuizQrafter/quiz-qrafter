@@ -50,7 +50,7 @@ const Header = () => {
             <h1 className={styles.logoMobile}>
               <Link
                 to="/"
-                className={styles.logoLink}
+                className={styles.mobileLogoLink}
                 onClick={handleLogoClick}
               >
                 Quiz Qrafter
