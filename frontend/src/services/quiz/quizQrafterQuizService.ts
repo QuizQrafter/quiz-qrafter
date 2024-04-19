@@ -9,6 +9,7 @@ export class QuizQrafterQuizService implements QuizService {
       method: "POST",
       credentials: "include",
       headers: {
+        "Content-Type": "application/json",
         Accept: "text/markdown",
       },
       body: JSON.stringify({
@@ -25,7 +26,8 @@ export class QuizQrafterQuizService implements QuizService {
       method: "POST",
       credentials: "include",
       headers: {
-        Accept: "application/pdf",
+        "Content-Type": "application/json",
+        Accept: "application/octet-stream",
       },
       body: JSON.stringify({
         filename,

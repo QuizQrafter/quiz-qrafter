@@ -100,7 +100,6 @@ router.post("/new", restrict, async (req, res) => {
     }
 
     res.setHeader("Content-disposition", "attachment; filename=quiz.pdf");
-    res.setHeader("Content-type", "application/pdf");
     res.status(200 /* OK */).send(pdf.content);
   } catch (error) {
     console.error(error);

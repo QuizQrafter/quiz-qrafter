@@ -40,8 +40,7 @@ const Dashboard: React.FC = () => {
           </div>
           <img src={Logo} alt="Quiz Qrafter" className={styles.dashboardLogo} />
           <div className={styles.headerContent}>
-            {/* <span className={styles.email}>{user?.email}</span> */}
-            <span className={styles.email}>email@gmail.com</span>
+            <span className={styles.email}>{user?.email}</span>
             <button onClick={handleSignOut} className={styles.logoutButton}>
               LOGOUT
             </button>

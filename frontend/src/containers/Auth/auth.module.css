@@ -76,6 +76,12 @@
   text-align: left;
 }
 
+.authForgotPassword {
+  background: 'none'; 
+  border: 'none';
+  color: '#007bff';
+}
+
 .authButton {
   width: 100%;
   padding: 1rem;

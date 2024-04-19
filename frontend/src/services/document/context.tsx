@@ -4,7 +4,7 @@ import { DocumentService } from "./types";
 type DocumentContextValue = {
   loading: boolean;
   error: Error | null;
-  upload(file: File): void;
+  upload: (file: File) => Promise<void>;
 };
 
 const DocumentContext = createContext<DocumentContextValue | null>(null);
@@ -18,16 +18,18 @@ export function DocumentProvider({ service, children }: DocumentProviderProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const upload = (file: File) => {
+  const upload = async (file: File) => {
     setLoading(true);
-    service
-      .upload(file)
-      .then(() => setError(null))
-      .catch((err) => {
-        console.error(err);
-        setError(err);
-      })
-      .finally(() => setLoading(false));
+    try {
+      const response = await service.upload(file);
+      console.log("Upload successful:", response.quizMarkdown);
+      setError(null);
+    } catch (err) {
+      console.error("Upload failed:", err);
+      setError(err instanceof Error ? err : new Error("An unexpected error occurred"));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
