@@ -102,3 +102,77 @@
         margin-left: 200px;
     }
 }
+.settingsModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000; /* Ensure it's above other content */
+    width: 80%; /* Or a fixed width if you prefer */
+    max-width: 400px; /* Maximum width */
+    background: #fff; /* Light background for the content */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border: 1px solid #e1e1e1; /* Slight border */
+  }
+  
+  .settingsModalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Space between header and content */
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1; /* Separator */
+  }
+ 
+  
+  .settingsModalCloseButton {
+    position: fixed;
+    margin-left: 380px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .settingsModalContent {
+    color: #333; /* Matching the dark theme text color */
+  }
+  
+  .settingsModalContent label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: bold;
+  }
+  
+  .settingsModalContent input,
+  .settingsModalContent select,
+  .settingsModalContent button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 1rem; /* Space between form elements */
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Light border for inputs */
+    box-sizing: border-box; /* Box-sizing property */
+  }
+  
+  .settingsModalContent button {
+    background-color: #7a84f9; /* Button color matching your theme */
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .settingsModalContent button:hover {
+    background-color: #696fdd; /* Slightly darker on hover */
+  }
+  
+  /* You might want to add media queries to ensure the modal looks good on mobile */
+  @media (max-width: 768px) {
+    .settingsModal {
+      width: 90%;
+      max-width: none; /* Full width on smaller screens */
+    }
+  }

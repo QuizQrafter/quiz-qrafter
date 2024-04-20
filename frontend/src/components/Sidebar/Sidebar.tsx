@@ -1,13 +1,15 @@
 import React from 'react';
 import styles from './sidebar.module.css';
 import { useTheme } from '../../containers/Admin/ThemeContext';
+import settingsIcon from '../../assets/settings_icon.svg'; 
 
 const Sidebar: React.FC<{
     isOpen: boolean,
     closeSidebar: () => void,
     activeMenu: 'quiz' | 'settings',
     setActiveMenu: (menu: 'quiz' | 'settings') => void
-}> = ({ isOpen, closeSidebar, activeMenu, setActiveMenu }) => {
+    toggleSettings?: () => void
+}> = ({ isOpen, closeSidebar, activeMenu, setActiveMenu, toggleSettings }) => {
 
     const { theme } = useTheme();
     const themeColors = {
@@ -29,11 +31,12 @@ const Sidebar: React.FC<{
                     <li className={activeMenu === 'quiz' ? styles.active : ''} onClick={() => handleMenuClick('quiz')}>
                         <button>Quiz</button>
                     </li>
-                    <li className={activeMenu === 'settings' ? styles.active : ''} onClick={() => handleMenuClick('settings')}>
-                        <button>Settings</button>
+                    <li className={activeMenu === 'settings' ? styles.active : ''} onClick={() => handleMenuClick('quiz')}>
+                        <button onClick={toggleSettings}>Settings</button>
                     </li>
                 </ul>
             </nav>
+            
         </aside>
     );
 };
