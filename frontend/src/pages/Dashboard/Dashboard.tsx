@@ -19,6 +19,10 @@ const Dashboard: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentColor = themeColors[theme];
   const [activeMenu, setActiveMenu] = useState<'quiz' | 'settings'>('quiz');
+  const [showSettings, setShowSettings] = useState(false);
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
 
   const handleSignOut = () => {
     signOut();
@@ -48,16 +52,32 @@ const Dashboard: React.FC = () => {
         </header>
         <div className={styles.mainContent}>
           <div className={`${sbStyles.sidebar} ${sidebarOpen ? sbStyles.open : ''}`}>
-            <Sidebar isOpen={sidebarOpen} closeSidebar={toggleSidebar} activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
+            <Sidebar isOpen={sidebarOpen} closeSidebar={toggleSidebar} activeMenu={activeMenu} setActiveMenu={setActiveMenu} toggleSettings={toggleSettings} />
           </div>
           <main className={`${styles.content} ${sidebarOpen ? styles.contentWithSidebar : ''}`}>
             {activeMenu === 'quiz' ? (
               <Quiz />
             ) : (
-              <Settings/>
+              null
             )}
           </main>
         </div>
+        {showSettings && (
+  <div className={styles.settingsModal}>
+    <div className={styles.settingsModalHeader}>
+    
+      <button
+        className={styles.settingsModalCloseButton}
+        onClick={() => setShowSettings(false)}
+      >
+        ×
+      </button>
+    </div>
+    <div className={styles.settingsModalContent}>
+      <Settings />
+    </div>
+  </div>
+)}
       </div>
     </>
   );
