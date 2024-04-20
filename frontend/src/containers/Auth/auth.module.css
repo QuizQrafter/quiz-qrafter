@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f8f8f8;
+  background-color: #819ee7;
 }
 
 .authCard {
@@ -74,6 +74,12 @@
   margin-bottom: 1px;
   padding: 3px;
   text-align: left;
+}
+
+.authForgotPassword {
+  background: 'none'; 
+  border: 'none';
+  color: '#007bff';
 }
 
 .authButton {

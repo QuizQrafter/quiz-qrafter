@@ -1,50 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useQuizAPI } from '../../services/quiz/context';
 import { useDocumentAPI } from '../../services/document/context';
+import MarkdownEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
+import { PulseLoader } from 'react-spinners';
+import markdownIt from 'markdown-it';
 import styles from './admin.module.css';
+
+const mdParser = markdownIt(/* Markdown-it options */);
 
 const Quiz = () => {
   const [file, setFile] = useState<File | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const { upload, loading, error } = useDocumentAPI();
+  const [fileName, setFileName] = useState('');
+  const { upload, loading: uploadLoading, error: uploadError } = useDocumentAPI();
+  const { markdown, generateMD, generatePDF, loading: pdfLoading, error: pdfError } = useQuizAPI();
+  const [editableMarkdown, setEditableMarkdown] = useState(markdown ?? "");
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files ? event.target.files[0] : null;
     setFile(selectedFile);
-    setFileName(selectedFile ? selectedFile.name : null);
-  };
+    setFileName(selectedFile ? selectedFile.name : '');
+  }, []);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!file) {
+  const handleUpload = useCallback(async () => {
+    if (file) {
+      try {
+        await upload(file);
+        alert('File uploaded successfully!');
+        await generateMD(fileName);
+      } catch (err) {
+        const error = err as Error;
+        alert(`Failed to upload file: ${error.message}`);
+      }
+    } else {
       alert('Please select a file to upload.');
-      return;
     }
-    
-    upload(file);
+  }, [file, fileName, upload, generateMD]);
+
+  const handleDownloadPDF = useCallback(async () => {
+    if (fileName) {
+      console.log({ fileName });
+      await generatePDF(fileName);
+    } else {
+      alert('Please select a file first.');
+    }
+  }, [fileName, generatePDF]);
+
+  useEffect(() => {
+    setEditableMarkdown(markdown ?? "");
+  }, [markdown, setEditableMarkdown]);
+
+  const handleEditorChange = ({ html, text }: { html: string, text: string }) => {
+    setEditableMarkdown(text);
+    // Optionally use HTML for something
   };
 
   return (
     <div className={styles.quizContainer}>
-      <h2 className={styles.quizTitle}>Quiz Area</h2>
-      <p>Welcome to the Quiz room. Start Crafting!</p>
-      <form className={styles.quizForm} onSubmit={handleSubmit}>
-        <label htmlFor="quizFile" className={styles.quizFileInputLabel}>
-          Choose a file
+      <div className={styles.toolbar}>
+        <label className={styles.fileInputLabel}>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className={styles.fileInput}
+            disabled={uploadLoading || pdfLoading}
+            accept=".pdf,.docx,.txt"
+            style={{ display: 'none' }}
+          />
+          {uploadLoading || pdfLoading ? <PulseLoader color="#ffffff" size={10} /> : (fileName || 'Choose File')}
         </label>
-        <input
-          id="quizFile"
-          type="file"
-          name="quizFile"
-          className={styles.quizFileInput}
-          onChange={handleFileChange}
-          accept=".pdf, .docx, .txt"
-        />
-        {fileName && <p className={styles.selectedFileName}>Selected file: {fileName}</p>}
-        <button type="submit" className={styles.quizSubmitButton} disabled={loading}>
-          {loading ? 'Uploading...' : 'Upload Quiz'}
+        <button onClick={handleUpload} disabled={uploadLoading || !file} className={styles.uploadButton}>
+          Upload
         </button>
-      </form>
-      {error && <p className={styles.errorText}>Error: {error.message}</p>}
+        <button onClick={handleDownloadPDF} disabled={pdfLoading || !editableMarkdown} className={styles.downloadButton}>
+          Download PDF
+        </button>
+      </div>
+      <MarkdownEditor
+        value={editableMarkdown}
+        style={{ height: '500px', width: '100%' }}
+        renderHTML={(text) => mdParser.render(text)}
+        onChange={({ text }) => setEditableMarkdown(text)}
+      />
+      {uploadError && <p className={styles.errorText}>Upload Error: {uploadError.message}</p>}
+      {pdfError && <p className={styles.errorText}>PDF Error: {pdfError.message}</p>}
     </div>
   );
 };
