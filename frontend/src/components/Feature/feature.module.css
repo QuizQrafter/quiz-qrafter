@@ -1,6 +1,6 @@
 /* Base styles (for mobile view) */
 .featureCard {
-  background: #fff;
+  background: #ffffff;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -9,10 +9,16 @@
   overflow: hidden;
   margin: 1rem; /* Equal margin on all sides */
   width: calc(
-    100% - 2rem
+    100% - 3rem
   ); /* Subtract the total horizontal margin from the width */
   max-width: 100%; /* Ensure card won't exceed the width of the screen */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.featureCard:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.01); 
 }
 
 .featureImage {
@@ -37,7 +43,7 @@
     width: calc(
       50% - 2rem
     ); /* Adjust width for two cards per row with spacing between */
-    max-width: 640px; /* Max width for larger cards */
+    max-width: 640px;
   }
 
   .featureImage {
@@ -78,6 +84,6 @@
 }
 
 .enrollButton:hover {
-  background-color: #0056b3;
+  background-color: #82a5ff;
   /* A darker shade for hover state */
 }

@@ -1,4 +1,5 @@
 import cors from "cors";
+import "dotenv/config";
 import express from "express";
 
 import v1Router from "./api/v1";
@@ -9,6 +10,7 @@ const { PORT = "8080", FRONTEND_URL } = process.env;
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(
   cors({
     origin: FRONTEND_URL,

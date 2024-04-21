@@ -6,6 +6,7 @@ import Testimonials from "../../components/Testimonials/Testimonials";
 import Footer from "../../components/Footer/Footer";
 import styles from "./home.module.css";
 import image1 from "../../assets/courses.png";
+import Benefit from "../../components/Benefit/Benefit";
 
 const Home = () => {
   const [showAllFeatures, setShowAllFeatures] = useState(false);
@@ -57,10 +58,11 @@ const Home = () => {
                 title={feature.title}
                 description={feature.description}
                 imageUrl={feature.imageUrl}
-              />
+              />            
             ))}
         </div>
       </section>
+      <Benefit />
       <Testimonials />
       <Footer />
     </div>

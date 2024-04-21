@@ -1,0 +1,174 @@
+
+:root {
+  --primary-color: #5d93e1;
+  --background-color: #f0f2f5;
+  --text-color: #333;
+  --button-hover-color: #507dbc;
+}
+
+.quizContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.fileInput {
+  margin-right: 10px;
+}
+
+.uploadButton, .downloadButton {
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.uploadButton:disabled, .downloadButton:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.markdownEditor {
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.errorText {
+  color: red;
+  margin-top: 10px;
+}  
+
+.fileInputLabel {
+  display: inline-block;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.fileInputLabel:hover {
+  background-color: var(--button-hover-color);
+}  
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+  }
+
+  .fileInput,
+  .uploadButton, .downloadButton {
+    flex-basis: 100%;
+    margin-bottom: 10px;
+  }
+
+  .uploadButton, .downloadButton {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quizContainer {
+    margin: 10px;
+  }
+
+  .markdownEditor {
+    height: 200px;
+  }
+}
+
+/* Additional styles for Markdown Editor customization */
+.md-editor {
+border: 1px solid var(--primary-color); /* Example to use a primary color variable */
+border-radius: 8px; /* Rounded corners for the editor */
+}
+
+.md-editor .md-editor-toolbar {
+background-color: var(--background-color); /* Light background for the toolbar */
+}
+
+.md-editor .md-editor-textarea {
+background-color: white; /* Ensures the editing area is clearly visible */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+.md-editor {
+  flex-direction: column;
+}
+
+.md-editor .editor-preview {
+  order: -1; /* Preview comes above the editor on small screens */
+}
+}
+
+.fileNameDisplay {
+margin-top: 10px;
+color: var(--text-color);
+font-size: 14px;
+}
+
+.fileInputLabel {
+display: inline-block;
+padding: 10px;
+font-size: 16px;
+color: white;
+background-color: var(--primary-color);
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin-right: 10px;
+text-align: center;
+min-width: 120px; /* Ensures the label has a button-like appearance */
+}
+
+.fileInputLabel:hover {
+background-color: var(--button-hover-color);
+}
+
+@media (max-width: 768px) {
+.toolbar {
+  flex-direction: column;
+  align-items: center;
+}
+
+.fileInput, .uploadButton, .downloadButton {
+  flex-basis: 100%;
+  margin-top: 10px;
+}
+
+.uploadButton, .downloadButton {
+  font-size: 14px;
+  padding: 8px 10px; /* Slightly smaller padding on smaller screens */
+}
+
+.fileInputLabel {
+  width: auto; /* Allows the label to grow as needed on smaller screens */
+}
+}
+
+@media (max-width: 480px) {
+.markdownEditor {
+  height: 200px;
+}
+}

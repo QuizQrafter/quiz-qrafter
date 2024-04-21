@@ -2,16 +2,19 @@
   display: flex;
   flex-direction: column;
   /* align-items: center; Center children horizontally */
+  background-color: #bdecff;
+  z-index: -3;
 }
 
 .featureSection {
-  width: 100%;
-  max-width: 1200px;
+  width: 90%;
+  /* max-width: 1400px; */
   /* Adjust max-width as needed */
   margin: auto;
   /* Centers the section */
   padding: 0 20px;
   /* Add padding on the sides */
+  align-self: center;
 }
 
 .sectionHeader {
@@ -22,7 +25,8 @@
 }
 
 .sectionTitle {
-  font-size: 1.5rem;
+  margin-top: 15rem;
+  font-size: 2.2rem;
   color: #333;
   /* Add any additional styles */
 }
@@ -31,10 +35,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
   /* Adjust this as needed for your design */
 }
 
 .viewAllButton {
+  margin-top: 15rem;
+  margin-right: 2rem;
   padding: 10px 20px;
   background-color: #000000;
   color: white;
@@ -44,10 +51,34 @@
   /* Add any additional styles */
 }
 
+.viewAllButton:hover{
+  background-color:#9fbaff;
+  border-color: #9fbaff;
+}
+
+.benefits{
+  z-index: 1;
+  width:100%;
+  margin-top: 10rem;
+}
+
 /* Add media queries for responsive design if necessary */
 @media (max-width: 768px) {
   .featuresGrid {
     flex-direction: column;
+    width: 100%;
+    margin-left: 0.5rem;
+  }
+
+  .sectionTitle {
+    margin-top: 6rem;
+    margin-left: -1rem;
+    font-size: 1.7rem;
+  }
+
+  .viewAllButton {
+    margin-top: 6rem;
+    margin-right: -1rem;
   }
 }
 
