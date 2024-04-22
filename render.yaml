@@ -1,3 +1,4 @@
+# see https://docs.render.com/blueprint-spec
 services:
     - type: web
       name: quizqrafter-api
@@ -29,6 +30,11 @@ services:
             value: /etc/secrets/gcloud-key.json
           - key: OPENAI_API_KEY
             sync: false
+          - key: REDIS_URL
+            fromService:
+                type: redis
+                name: sessionStore
+                property: connectionString
     - type: web
       name: quizqrafter
       runtime: static
@@ -41,7 +47,11 @@ services:
                 type: web
                 name: quizqrafter-api
                 envVarKey: RENDER_EXTERNAL_URL
-
+    - type: redis
+      name: sessionStore
+      ipAllowList: [] # Only allow internal connections
+      plan: free
+      maxmemoryPolicy: noeviction # Default: allkeys-lru
 databases:
     - name: quizqrafterdb
       databaseName: quizqrafterdb
