@@ -35,6 +35,17 @@ services:
                 type: redis
                 name: sessionStore
                 property: connectionString
+          - key: CONVERSION_ENDPOINT
+            fromService:
+                type: web
+                name: quizqrafter-md2pdf
+                envVarKey: RENDER_EXTERNAL_URL
+    - type: web
+      runtime: docker
+      name: quizqrafter-md2pdf
+      rootDir: ./md2pdf/
+      healthCheckPath: /healthz
+      plan: free
     - type: web
       name: quizqrafter
       runtime: static
@@ -47,7 +58,7 @@ services:
                 type: web
                 name: quizqrafter-api
                 envVarKey: RENDER_EXTERNAL_URL
-    - type: redis
+   - type: redis
       name: sessionStore
       ipAllowList: [] # Only allow internal connections
       plan: free

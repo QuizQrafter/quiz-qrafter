@@ -4,7 +4,7 @@ import OpenAI from "openai";
 import prisma from "../../database";
 import { restrict } from "./auth";
 
-const { GOOGLE_APPLICATION_CREDENTIALS } = process.env;
+const { GOOGLE_APPLICATION_CREDENTIALS, CONVERTER_ENDPOINT = "http://localhost:8081/" } = process.env;
 
 const router = Router();
 
@@ -96,8 +96,8 @@ router.post("/new", restrict, async (req, res) => {
         },
       });
     }
-
     res.setHeader("Content-disposition", "attachment; filename=quiz.pdf");
+    res.setHeader("Content-type", "application/octet-stream");
     res.status(200 /* OK */).send(pdf);
   } catch (error) {
     console.error(error);
@@ -205,17 +205,20 @@ router.delete("/delete/:filename", restrict, async (req, res) => {
   }
 });
 
-
 async function mdToPDF(markdown: string): Promise<Buffer> {
-    const urlEncoded = new URLSearchParams();
-    urlEncoded.append("markdown", markdown);
-    const response = await fetch("https://md-to-pdf.fly.dev", {
+    const response = await fetch(new URL("/convert", CONVERTER_ENDPOINT), {
       method: "POST",
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-      body: urlEncoded,
+      headers: {
+          "Content-Type": "text/markdown",
+      },
+      body: markdown,
     });
-    const arrBuf = await response.arrayBuffer();
-    return Buffer.from(arrBuf);
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+    return response.blob()
+      .then(blob => blob.arrayBuffer())
+      .then(Buffer.from);
 }
 
 export default router;
