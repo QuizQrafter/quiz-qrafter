@@ -37,6 +37,8 @@ router.use(
     secret: SESSION_SECRET,
     cookie: {
        maxAge: 10 * 60 * 1000, // 10 minutes
+       sameSite: process.env.NODE_ENV === "production" ? "none" : undefined,
+       secure: process.env.NODE_ENV === "production",
     }
   }),
 );
