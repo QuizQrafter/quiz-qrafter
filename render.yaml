@@ -30,6 +30,11 @@ services:
             value: /etc/secrets/gcloud-key.json
           - key: OPENAI_API_KEY
             sync: false
+          - key: DOMAIN
+            fromService:
+                type: web
+                name: quizqrafter
+                property: host
           - key: REDIS_URL
             fromService:
                 type: redis
