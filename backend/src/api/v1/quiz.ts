@@ -4,7 +4,7 @@ import OpenAI from "openai";
 import prisma from "../../database";
 import { restrict } from "./auth";
 
-const { GCLOUD_KEY_FILEPATH } = process.env;
+const { GOOGLE_APPLICATION_CREDENTIALS } = process.env;
 
 const router = Router();
 
@@ -27,7 +27,7 @@ router.post("/new", restrict, async (req, res) => {
     const filename = req.body.filename;
 
     // Upload raw document and transcripted file to bucket
-    const storage = new Storage({ keyFile: GCLOUD_KEY_FILEPATH! });
+    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! });
     const bucket = storage.bucket("quizqrafter-documents");
     const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
     const dbDoc = await prisma.document.findFirst({
@@ -117,7 +117,7 @@ router.get("/download/:filename", restrict, async (req, res) => {
     }
 
     const filename = req.params.filename;
-    const storage = new Storage({ keyFile: GCLOUD_KEY_FILEPATH! });
+    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! });
     const bucket = storage.bucket("quizqrafter-documents");
     const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
     const dbDoc = await prisma.document.findFirst({
@@ -163,7 +163,7 @@ router.delete("/delete/:filename", restrict, async (req, res) => {
       return res.sendStatus(401 /* Unauthorized */);
     }
     const filename = decodeURIComponent(req.params.filename);
-    const storage = new Storage({ keyFile: GCLOUD_KEY_FILEPATH! });
+    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! });
     const bucket = storage.bucket("quizqrafter-documents");
     const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
     const dbDoc = await prisma.document.findFirst({
