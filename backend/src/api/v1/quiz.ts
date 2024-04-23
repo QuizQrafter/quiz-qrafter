@@ -1,10 +1,8 @@
 import { Storage } from "@google-cloud/storage";
 import { Router } from "express";
-import mdToPdf from "md-to-pdf";
 import OpenAI from "openai";
 import prisma from "../../database";
 import { restrict } from "./auth";
-import { decode } from "punycode";
 
 const { GCLOUD_KEY_FILEPATH } = process.env;
 
@@ -71,12 +69,12 @@ router.post("/new", restrict, async (req, res) => {
     if (req.headers.accept === "text/markdown") {
       return res.status(200 /* OK */).send(quizContent);
     }
-    const pdf = await mdToPdf({ content: quizContent });
+    const pdf = await mdToPDF(quizContent);
 
     // Upload raw document and transcripted file to bucket
     const quizbucket = storage.bucket("quizqrafter-quizzes");
     const quizfile = quizbucket.file(`u${userId}-${filename}-quiz.pdf`);
-    await quizfile.save(pdf.content);
+    await quizfile.save(pdf);
 
     const prevQuiz = await prisma.quiz.findFirst({
       where: {
@@ -100,7 +98,7 @@ router.post("/new", restrict, async (req, res) => {
     }
 
     res.setHeader("Content-disposition", "attachment; filename=quiz.pdf");
-    res.status(200 /* OK */).send(pdf.content);
+    res.status(200 /* OK */).send(pdf);
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
@@ -206,5 +204,18 @@ router.delete("/delete/:filename", restrict, async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+
+async function mdToPDF(markdown: string): Promise<Buffer> {
+    const urlEncoded = new URLSearchParams();
+    urlEncoded.append("markdown", markdown);
+    const response = await fetch("https://md-to-pdf.fly.dev", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body: urlEncoded,
+    });
+    const arrBuf = await response.arrayBuffer();
+    return Buffer.from(arrBuf);
+}
 
 export default router;
