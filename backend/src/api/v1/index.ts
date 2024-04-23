@@ -37,7 +37,7 @@ router.use(
     secret: SESSION_SECRET,
     cookie: {
        maxAge: 10 * 60 * 1000, // 10 minutes
-       domain: DOMAIN,
+       // domain: DOMAIN,
     }
   }),
 );
