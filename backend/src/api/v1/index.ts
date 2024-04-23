@@ -38,6 +38,7 @@ router.use(
     cookie: {
        maxAge: 10 * 60 * 1000, // 10 minutes
        sameSite: "none",
+       secure: process.env.NODE_ENV === "production",
        // domain: DOMAIN,
     }
   }),
