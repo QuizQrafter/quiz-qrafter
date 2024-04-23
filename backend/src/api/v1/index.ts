@@ -6,7 +6,7 @@ import authRouter from "./auth";
 import documentRouter from "./document";
 import quizRouter from "./quiz";
 
-const { SESSION_SECRET = "secret", DOMAIN = "localhost", REDIS_URL } = process.env;
+const { SESSION_SECRET = "secret", REDIS_URL } = process.env;
 
 const router = Router();
 
@@ -37,9 +37,8 @@ router.use(
     secret: SESSION_SECRET,
     cookie: {
        maxAge: 10 * 60 * 1000, // 10 minutes
-       sameSite: "none",
+       sameSite: process.env.NODE_ENV === "production" ? "none" : undefined,
        secure: process.env.NODE_ENV === "production",
-       // domain: DOMAIN,
     }
   }),
 );
