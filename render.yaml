@@ -26,7 +26,7 @@ services:
             value: us
           - key: GCLOUD_DOCUMENT_PROCESSOR_ID
             sync: false
-          - key: GCLOUD_KEY_FILEPATH
+          - key: GOOGLE_APPLICATION_CREDENTIALS
             value: /etc/secrets/gcloud-key.json
           - key: OPENAI_API_KEY
             sync: false
