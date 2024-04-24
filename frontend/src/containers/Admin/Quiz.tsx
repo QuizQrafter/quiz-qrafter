@@ -50,11 +50,6 @@ const Quiz = () => {
     setEditableMarkdown(markdown ?? "");
   }, [markdown, setEditableMarkdown]);
 
-  const handleEditorChange = ({ html, text }: { html: string, text: string }) => {
-    setEditableMarkdown(text);
-    // Optionally use HTML for something
-  };
-
   return (
     <div className={styles.quizContainer}>
       <div className={styles.toolbar}>
@@ -64,7 +59,7 @@ const Quiz = () => {
             onChange={handleFileChange}
             className={styles.fileInput}
             disabled={uploadLoading || pdfLoading}
-            accept=".pdf,.docx,.txt"
+            accept=".pdf,.docx,.txt,image/*"
             style={{ display: 'none' }}
           />
           {uploadLoading || pdfLoading ? <PulseLoader color="#ffffff" size={10} /> : (fileName || 'Choose File')}
@@ -84,6 +79,7 @@ const Quiz = () => {
       />
       {uploadError && <p className={styles.errorText}>Upload Error: {uploadError.message}</p>}
       {pdfError && <p className={styles.errorText}>PDF Error: {pdfError.message}</p>}
+      <p>Note: PDF uploads must be 15 pages or less.</p>
     </div>
   );
 };
