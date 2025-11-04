@@ -1,0 +1,14 @@
+services:
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myusername
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    restart: always

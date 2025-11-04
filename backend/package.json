@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsc",
         "start": "node dist/index.js",
-        "dev": "nodemon src/index.ts",
+        "dev": "ts-node src/index.ts",
         "check-types": "tsc --noEmit",
         "prisma:deploy": "prisma migrate deploy"
     },
@@ -33,7 +33,6 @@
         "@types/express-session": "^1.17.10",
         "@types/multer": "^1.4.11",
         "@types/node": "^20.11.19",
-        "nodemon": "^3.0.3",
         "ts-node": "^10.9.2",
         "typescript": "^5.3.3"
     }
