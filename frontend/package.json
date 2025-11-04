@@ -9,7 +9,6 @@
         "react-dom": "^18.2.0",
         "react-markdown-editor-lite": "^1.3.4",
         "react-router-dom": "^6.22.0",
-        "react-scripts": "5.0.1",
         "react-slick": "^0.30.1",
         "react-spinners": "^0.13.8",
         "react-toastify": "^10.0.5",
@@ -17,11 +16,23 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "BUILD_PATH='./dist' react-scripts start",
-        "build": "BUILD_PATH='./dist' react-scripts build",
-        "dev": "BUILD_PATH='./dist' react-scripts start",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/jest": "^27.5.2",
+        "@types/markdown-it": "^14.0.1",
+        "@types/node": "^16.18.78",
+        "@types/react": "^18.2.51",
+        "@types/react-dom": "^18.2.18",
+        "@types/react-slick": "^0.23.13",
+        "@vitejs/plugin-react-swc": "^4.2.0",
+        "typescript": "^4.9.5",
+        "vite": "^7.1.12"
     },
     "eslintConfig": {
         "extends": [
@@ -40,17 +51,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "@testing-library/jest-dom": "^5.17.0",
-        "@testing-library/react": "^13.4.0",
-        "@testing-library/user-event": "^13.5.0",
-        "@types/jest": "^27.5.2",
-        "@types/markdown-it": "^14.0.1",
-        "@types/node": "^16.18.78",
-        "@types/react": "^18.2.51",
-        "@types/react-dom": "^18.2.18",
-        "@types/react-slick": "^0.23.13",
-        "typescript": "^4.9.5"
     }
 }

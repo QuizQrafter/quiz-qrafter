@@ -8,13 +8,13 @@ import { AuthProvider } from "./services/auth";
 import { QuizQrafterAuthService } from "./services/auth/quizQrafterAuthService";
 import { DocumentProvider } from "./services/document/context";
 // import { LocalStorageDocumentService } from "./services/document/localStorageDocumentService";
+import { ThemeProvider } from "./containers/Admin/ThemeContext";
 import { QuizQrafterDocumentService } from "./services/document/quizQrafterDocumentService";
 import { QuizProvider } from "./services/quiz/context";
 import { QuizQrafterQuizService } from "./services/quiz/quizQrafterQuizService";
-import { ThemeProvider } from "./containers/Admin/ThemeContext";
 
-const { REACT_APP_API_URL = "http://localhost:8080" } = process.env;
-const apiURL = new URL(REACT_APP_API_URL);
+const { VITE_API_URL = "http://localhost:8080" } = import.meta.env;
+const apiURL = new URL(VITE_API_URL);
 
 const authService = new QuizQrafterAuthService(apiURL);
 // const authService = new LocalStorageAuthService();
