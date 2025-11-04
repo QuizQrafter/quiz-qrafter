@@ -1,32 +1,32 @@
-import { Router } from "express";
-import session, { MemoryStore, Store } from "express-session";
-import RedisStore from "connect-redis";
-import { createClient } from "redis";
-import authRouter from "./auth";
-import documentRouter from "./document";
-import quizRouter from "./quiz";
+import RedisStore from "connect-redis"
+import { Router } from "express"
+import session, { MemoryStore, type Store } from "express-session"
+import { createClient } from "redis"
+import authRouter from "./auth"
+import documentRouter from "./document"
+import quizRouter from "./quiz"
 
-const { SESSION_SECRET = "secret", REDIS_URL } = process.env;
+const { SESSION_SECRET = "secret", REDIS_URL } = process.env
 
-const router = Router();
+const router = Router()
 
-let sessionStore: Store;
+let sessionStore: Store
 if (REDIS_URL !== undefined || REDIS_URL !== "") {
-    const redisClient = createClient({
-        url: REDIS_URL,
-    });
-    redisClient.on('error', (err) => {
-        console.error('Could not establish a connection with redis. ' + err);
-    });
-    redisClient.on('connect', () => {
-        console.log('Connected to redis successfully');
-    });
-    redisClient.connect().catch((err) => console.error(err));
-    sessionStore = new RedisStore({
-        client: redisClient,
-    });
+  const redisClient = createClient({
+    url: REDIS_URL,
+  })
+  redisClient.on("error", (err) => {
+    console.error(`Could not establish a connection with redis. ${err}`)
+  })
+  redisClient.on("connect", () => {
+    console.log("Connected to redis successfully")
+  })
+  redisClient.connect().catch((err) => console.error(err))
+  sessionStore = new RedisStore({
+    client: redisClient,
+  })
 } else {
-    sessionStore = new MemoryStore();
+  sessionStore = new MemoryStore()
 }
 
 router.use(
@@ -36,15 +36,15 @@ router.use(
     saveUninitialized: false,
     secret: SESSION_SECRET,
     cookie: {
-       maxAge: 10 * 60 * 1000, // 10 minutes
-       sameSite: process.env.NODE_ENV === "production" ? "none" : undefined,
-       secure: process.env.NODE_ENV === "production",
-    }
+      maxAge: 10 * 60 * 1000, // 10 minutes
+      sameSite: process.env.NODE_ENV === "production" ? "none" : undefined,
+      secure: process.env.NODE_ENV === "production",
+    },
   }),
-);
+)
 
-router.use("/auth", authRouter);
-router.use("/document", documentRouter);
-router.use("/quiz", quizRouter);
+router.use("/auth", authRouter)
+router.use("/document", documentRouter)
+router.use("/quiz", quizRouter)
 
-export default router;
+export default router
