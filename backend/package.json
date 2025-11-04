@@ -7,9 +7,7 @@
         "build": "tsc",
         "start": "node dist/index.js",
         "dev": "nodemon src/index.ts",
-        "prisma:deploy": "prisma migrate deploy",
-        "lint": "prettier src/ --check",
-        "format": "prettier src/ --write"
+        "prisma:deploy": "prisma migrate deploy"
     },
     "dependencies": {
         "@google-cloud/documentai": "^8.2.0",
@@ -35,15 +33,7 @@
         "@types/multer": "^1.4.11",
         "@types/node": "^20.11.19",
         "nodemon": "^3.0.3",
-        "prettier": "3.2.5",
         "ts-node": "^10.9.2",
         "typescript": "^5.3.3"
-    },
-    "prettier": {
-        "semi": true,
-        "arrowParens": "always",
-        "singleQuote": false,
-        "tabWidth": 2,
-        "trailingComma": "all"
     }
 }
