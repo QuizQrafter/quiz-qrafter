@@ -3,6 +3,12 @@
     "version": "0.1.0",
     "private": true,
     "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check-types": "tsc --noEmit"
+    },
     "dependencies": {
         "markdown-it": "^14.1.0",
         "react": "^18.2.0",
@@ -14,11 +20,6 @@
         "react-toastify": "^10.0.5",
         "slick-carousel": "^1.8.1",
         "web-vitals": "^2.1.4"
-    },
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.17.0",
