@@ -8,6 +8,9 @@
         "build": {
             "outputs": [
                 "dist/**"
+            ],
+            "dependsOn": [
+                "check-types"
             ]
         },
         "check-types": {
