@@ -1,3 +1,3 @@
 export interface DocumentService {
-  upload(file: File): Promise<{ quizMarkdown: string }>
+  upload(file: File): Promise<{ quizMarkdown: string }>;
 }

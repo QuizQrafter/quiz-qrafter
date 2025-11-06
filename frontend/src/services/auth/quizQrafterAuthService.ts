@@ -1,4 +1,4 @@
-import type { AuthService, LoginCredentials, SignUpInfo, User } from "./types"
+import type { AuthService, LoginCredentials, SignUpInfo, User } from "./types";
 
 export class QuizQrafterAuthService implements AuthService {
   constructor(private readonly baseURL: URL) {}
@@ -7,13 +7,13 @@ export class QuizQrafterAuthService implements AuthService {
     const response = await fetch(new URL("/api/v1/auth/info", this.baseURL), {
       method: "GET",
       credentials: "include",
-    })
-    if (!response.ok) return null
-    const { email, fullname } = await response.json()
+    });
+    if (!response.ok) return null;
+    const { email, fullname } = await response.json();
     return {
       email: email,
       username: fullname,
-    }
+    };
   }
 
   async signUp(info: SignUpInfo): Promise<void> {
@@ -28,7 +28,7 @@ export class QuizQrafterAuthService implements AuthService {
         password: info.password,
         fullname: info.fullname,
       }),
-    })
+    });
   }
 
   async login(credentials: LoginCredentials): Promise<User> {
@@ -42,18 +42,18 @@ export class QuizQrafterAuthService implements AuthService {
         email: credentials.email,
         password: credentials.password,
       }),
-    })
-    const { email, fullname } = await response.json()
+    });
+    const { email, fullname } = await response.json();
     return {
       email: email,
       username: fullname,
-    }
+    };
   }
 
   async signOut(): Promise<void> {
     await fetch(new URL("/api/v1/auth/logout", this.baseURL), {
       method: "POST",
       credentials: "include",
-    })
+    });
   }
 }

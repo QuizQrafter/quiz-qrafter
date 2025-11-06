@@ -1,12 +1,12 @@
-import { Storage } from "@google-cloud/storage"
-import { Router } from "express"
-import OpenAI from "openai"
-import prisma from "../../database"
-import { restrict } from "./auth"
+import { Storage } from "@google-cloud/storage";
+import { Router } from "express";
+import OpenAI from "openai";
+import prisma from "../../database";
+import { restrict } from "./auth";
 
-const { GOOGLE_APPLICATION_CREDENTIALS } = process.env
+const { GOOGLE_APPLICATION_CREDENTIALS, OPENAI_API_KEY } = process.env;
 
-const router = Router()
+const router = Router();
 
 /*
 For formatting response, set Accept request header to
@@ -16,30 +16,30 @@ For formatting response, set Accept request header to
 router.post("/new", restrict, async (req, res) => {
   try {
     // @ts-expect-error
-    const userId = req.session.userId
-    const user = await prisma.user.findUnique({ where: { id: userId } })
+    const userId = req.session.userId;
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (user === null) {
       // user does not exist
-      console.error(`User-${userId} does not exist`)
-      return res.sendStatus(401 /* Unauthorized */)
+      console.error(`User-${userId} does not exist`);
+      return res.sendStatus(401 /* Unauthorized */);
     }
 
-    const filename = req.body.filename
+    const filename = req.body.filename;
 
     // Upload raw document and transcripted file to bucket
-    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! })
-    const bucket = storage.bucket("quizqrafter-documents")
-    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`)
+    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS });
+    const bucket = storage.bucket("quizqrafter-documents");
+    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
     const dbDoc = await prisma.document.findFirst({
       where: {
         transcriptionURL: transcriptedFile.cloudStorageURI.href,
       },
-    })
+    });
     if (dbDoc === null) {
-      console.error(`Document does not exist`)
-      return res.sendStatus(400 /* Bad Request */)
+      console.error(`Document does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
     }
-    const [file] = await transcriptedFile.download()
+    const [file] = await transcriptedFile.download();
     const query = `
     You are a quiz bot. Please prioritize keeping the original precise data from the input text in your outputted quiz. You don't make stuff up in your study quiz. Your tasks are as follows:
 
@@ -54,167 +54,167 @@ router.post("/new", restrict, async (req, res) => {
     Generate 10 questions
 
     Output in markdown with the answer key at the bottom
-    `
-    const openai = new OpenAI()
-    const transcription = file.toString("utf-8")
+    `;
+    const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+    const transcription = file.toString("utf-8");
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: query },
         { role: "user", content: transcription },
       ],
       model: "gpt-3.5-turbo",
-    })
+    });
 
-    const quizContent = completion.choices[0].message.content ?? ""
+    const quizContent = completion.choices[0].message.content ?? "";
     if (req.headers.accept === "text/markdown") {
-      return res.status(200 /* OK */).send(quizContent)
+      return res.status(200 /* OK */).send(quizContent);
     }
-    const pdf = await mdToPDF(quizContent)
+    const pdf = await mdToPDF(quizContent);
 
     // Upload raw document and transcripted file to bucket
-    const quizbucket = storage.bucket("quizqrafter-quizzes")
-    const quizfile = quizbucket.file(`u${userId}-${filename}-quiz.pdf`)
-    await quizfile.save(pdf)
+    const quizbucket = storage.bucket("quizqrafter-quizzes");
+    const quizfile = quizbucket.file(`u${userId}-${filename}-quiz.pdf`);
+    await quizfile.save(pdf);
 
     const prevQuiz = await prisma.quiz.findFirst({
       where: {
         documentId: dbDoc.id,
       },
-    })
+    });
     if (prevQuiz === null) {
       const _quiz = await prisma.quiz.create({
         data: {
           documentId: dbDoc.id,
           urlPdf: quizfile.cloudStorageURI.href,
         },
-      })
+      });
     } else {
       const _quiz = await prisma.quiz.update({
         where: { documentId: dbDoc.id },
         data: {
           urlPdf: quizfile.cloudStorageURI.href,
         },
-      })
+      });
     }
 
-    res.setHeader("Content-disposition", "attachment; filename=quiz.pdf")
-    res.status(200 /* OK */).send(pdf)
+    res.setHeader("Content-disposition", "attachment; filename=quiz.pdf");
+    res.status(200 /* OK */).send(pdf);
   } catch (error) {
-    console.error(error)
-    res.sendStatus(500)
+    console.error(error);
+    res.sendStatus(500);
   }
-})
+});
 
 router.get("/download/:filename", restrict, async (req, res) => {
   try {
     // @ts-expect-error
-    const userId = req.session.userId
-    const user = await prisma.user.findUnique({ where: { id: userId } })
+    const userId = req.session.userId;
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (user === null) {
       // user does not exist
-      console.error(`User-${userId} does not exist`)
-      return res.sendStatus(401 /* Unauthorized */)
+      console.error(`User-${userId} does not exist`);
+      return res.sendStatus(401 /* Unauthorized */);
     }
 
-    const filename = req.params.filename
-    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! })
-    const bucket = storage.bucket("quizqrafter-documents")
-    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`)
+    const filename = req.params.filename;
+    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS });
+    const bucket = storage.bucket("quizqrafter-documents");
+    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
     const dbDoc = await prisma.document.findFirst({
       where: {
         transcriptionURL: transcriptedFile.cloudStorageURI.href,
       },
-    })
+    });
     if (dbDoc === null) {
-      console.error(`Document does not exist`)
-      return res.sendStatus(400 /* Bad Request */)
+      console.error(`Document does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
     }
     const dbQuiz = await prisma.quiz.findUnique({
       where: {
         documentId: dbDoc.id,
       },
-    })
+    });
     if (dbQuiz === null) {
-      console.error(`Quiz does not exist`)
-      return res.sendStatus(400 /* Bad Request */)
+      console.error(`Quiz does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
     }
-    const fname = dbQuiz.urlPdf.replace("gs://quizqrafter-quizzes/", "") // eg. u1-note.pdf-quiz.pdf
+    const fname = dbQuiz.urlPdf.replace("gs://quizqrafter-quizzes/", ""); // eg. u1-note.pdf-quiz.pdf
     const [pdfQuiz] = await storage
       .bucket("quizqrafter-quizzes")
       .file(fname)
-      .download()
-    res.setHeader("Content-disposition", "attachment; filename=quiz.pdf")
-    res.setHeader("Content-type", "application/pdf")
-    res.status(200 /* OK */).send(pdfQuiz)
+      .download();
+    res.setHeader("Content-disposition", "attachment; filename=quiz.pdf");
+    res.setHeader("Content-type", "application/pdf");
+    res.status(200 /* OK */).send(pdfQuiz);
   } catch (error) {
-    console.error(error)
-    res.sendStatus(500)
+    console.error(error);
+    res.sendStatus(500);
   }
-})
+});
 
 router.delete("/delete/:filename", restrict, async (req, res) => {
   try {
     // @ts-expect-error
-    const userId = req.session.userId
-    const user = await prisma.user.findUnique({ where: { id: userId } })
+    const userId = req.session.userId;
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (user === null) {
       // user does not exist
-      console.error(`User-${userId} does not exist`)
-      return res.sendStatus(401 /* Unauthorized */)
+      console.error(`User-${userId} does not exist`);
+      return res.sendStatus(401 /* Unauthorized */);
     }
-    const filename = decodeURIComponent(req.params.filename)
-    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! })
-    const bucket = storage.bucket("quizqrafter-documents")
-    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`)
+    const filename = decodeURIComponent(req.params.filename);
+    const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS });
+    const bucket = storage.bucket("quizqrafter-documents");
+    const transcriptedFile = bucket.file(`u${userId}-${filename}.transcript`);
     const dbDoc = await prisma.document.findFirst({
       where: {
         transcriptionURL: transcriptedFile.cloudStorageURI.href,
       },
-    })
+    });
     if (dbDoc === null) {
-      console.error(`Document does not exist`)
-      return res.sendStatus(400 /* Bad Request */)
+      console.error(`Document does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
     }
     const dbQuiz = await prisma.quiz.findUnique({
       where: {
         documentId: dbDoc.id,
       },
-    })
+    });
     if (dbQuiz === null) {
-      console.error(`Quiz does not exist`)
-      return res.sendStatus(400 /* Bad Request */)
+      console.error(`Quiz does not exist`);
+      return res.sendStatus(400 /* Bad Request */);
     }
-    const fname = dbQuiz.urlPdf.replace("gs://quizqrafter-quizzes/", "") // eg. u1-note.pdf-quiz.pdf
+    const fname = dbQuiz.urlPdf.replace("gs://quizqrafter-quizzes/", ""); // eg. u1-note.pdf-quiz.pdf
     const [response] = await storage
       .bucket("quizqrafter-quizzes")
       .file(fname)
-      .delete()
+      .delete();
 
     await prisma.quiz.delete({
       where: {
         id: dbQuiz.id,
       },
-    })
+    });
 
-    return res.sendStatus(response.statusCode)
+    return res.sendStatus(response.statusCode);
   } catch (error) {
-    console.error(error)
-    res.sendStatus(500)
+    console.error(error);
+    res.sendStatus(500);
   }
-})
+});
 
 async function mdToPDF(markdown: string): Promise<Buffer> {
-  const urlEncoded = new URLSearchParams()
-  urlEncoded.append("markdown", markdown)
+  const urlEncoded = new URLSearchParams();
+  urlEncoded.append("markdown", markdown);
   const response = await fetch("https://md-to-pdf.fly.dev", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
     },
     body: urlEncoded,
-  })
-  const arrBuf = await response.arrayBuffer()
-  return Buffer.from(arrBuf)
+  });
+  const arrBuf = await response.arrayBuffer();
+  return Buffer.from(arrBuf);
 }
 
-export default router
+export default router;

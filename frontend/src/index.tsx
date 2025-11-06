@@ -4,22 +4,22 @@ import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./services/auth";
-// import { LocalStorageAuthService } from "./services/auth/localStorageAuthService";
-import { QuizQrafterAuthService } from "./services/auth/quizQrafterAuthService";
-import { DocumentProvider } from "./services/document/context";
-// import { LocalStorageDocumentService } from "./services/document/localStorageDocumentService";
+import { LocalStorageAuthService } from "./services/auth/localStorageAuthService";
+// import { QuizQrafterAuthService } from "./services/auth/quizQrafterAuthService";
 import { ThemeProvider } from "./containers/Admin/ThemeContext";
-import { QuizQrafterDocumentService } from "./services/document/quizQrafterDocumentService";
+import { DocumentProvider } from "./services/document/context";
+import { LocalStorageDocumentService } from "./services/document/localStorageDocumentService";
+// import { QuizQrafterDocumentService } from "./services/document/quizQrafterDocumentService";
 import { QuizProvider } from "./services/quiz/context";
 import { QuizQrafterQuizService } from "./services/quiz/quizQrafterQuizService";
 
 const { VITE_API_URL = "http://localhost:8080" } = import.meta.env;
 const apiURL = new URL(VITE_API_URL);
 
-const authService = new QuizQrafterAuthService(apiURL);
-// const authService = new LocalStorageAuthService();
-const documentService = new QuizQrafterDocumentService(apiURL);
-// const documentService = new LocalStorageDocumentService(authService);
+// const authService = new QuizQrafterAuthService(apiURL);
+const authService = new LocalStorageAuthService();
+// const documentService = new QuizQrafterDocumentService(apiURL);
+const documentService = new LocalStorageDocumentService(authService);
 const quizService = new QuizQrafterQuizService(apiURL);
 
 const root = ReactDOM.createRoot(
