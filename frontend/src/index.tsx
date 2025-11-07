@@ -30,10 +30,10 @@ root.render(
     <AuthProvider service={authService}>
       <DocumentProvider service={documentService}>
         <QuizProvider service={quizService}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-      </QuizProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </QuizProvider>
       </DocumentProvider>
     </AuthProvider>
   </React.StrictMode>,
