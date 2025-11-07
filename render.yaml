@@ -1,59 +1,59 @@
 # see https://docs.render.com/blueprint-spec
 services:
-    - type: web
-      name: quizqrafter-api
-      runtime: node
-      rootDir: ./backend/
-      healthCheckPath: /healthz
-      buildCommand: npm ci && npm run build
-      startCommand: npm run prisma:deploy && npm run start
-      plan: free
-      envVars:
-          - key: SESSION_SECRET
-            generateValue: true # generates a base64-encoded 256-bit secret
-          - key: FRONTEND_URL
-            fromService:
-                type: web
-                name: quizqrafter
-                envVarKey: RENDER_EXTERNAL_URL
-          - key: DATABASE_URL
-            fromDatabase:
-                name: quizqrafterdb
-                property: connectionString
-          - key: GCLOUD_PROJECT_ID
-            sync: false
-          - key: GCLOUD_LOCATION
-            value: us
-          - key: GCLOUD_DOCUMENT_PROCESSOR_ID
-            sync: false
-          - key: GOOGLE_APPLICATION_CREDENTIALS
-            value: /etc/secrets/gcloud-key.json
-          - key: OPENAI_API_KEY
-            sync: false
-          - key: REDIS_URL
-            fromService:
-                type: redis
-                name: sessionStore
-                property: connectionString
-    - type: web
-      name: quizqrafter
-      runtime: static
-      rootDir: ./frontend/
-      buildCommand: npm run build
-      staticPublishPath: ./build/
-      envVars:
-          - key: REACT_APP_API_URL
-            fromService:
-                type: web
-                name: quizqrafter-api
-                envVarKey: RENDER_EXTERNAL_URL
-    - type: redis
-      name: sessionStore
-      ipAllowList: [] # Only allow internal connections
-      plan: free
-      maxmemoryPolicy: noeviction # Default: allkeys-lru
+  - type: web
+    name: quizqrafter-api
+    runtime: node
+    rootDir: .
+    healthCheckPath: /healthz
+    buildCommand: npm ci && npm run build -- --filter=backend --env-mode=loose
+    startCommand: npm run start -- --filter=backend --env-mode=loose
+    plan: free
+    envVars:
+      - key: SESSION_SECRET
+        generateValue: true # generates a base64-encoded 256-bit secret
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: quizqrafter
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: DATABASE_URL
+        fromDatabase:
+          name: quizqrafterdb
+          property: connectionString
+      - key: GCLOUD_PROJECT_ID
+        sync: false
+      - key: GCLOUD_LOCATION
+        value: us
+      - key: GCLOUD_DOCUMENT_PROCESSOR_ID
+        sync: false
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/secrets/gcloud-key.json
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: sessionStore
+          property: connectionString
+  - type: web
+    name: quizqrafter
+    runtime: static
+    rootDir: .
+    buildCommand: npm ci && npm run build -- --filter=frontend --env-mode=loose
+    staticPublishPath: frontend/dist/
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: quizqrafter-api
+          envVarKey: RENDER_EXTERNAL_URL
+  - type: redis
+    name: sessionStore
+    ipAllowList: [] # Only allow internal connections
+    plan: free
+    maxmemoryPolicy: noeviction # Default: allkeys-lru
 databases:
-    - name: quizqrafterdb
-      databaseName: quizqrafterdb
-      user: quizqrafter
-      plan: free
+  - name: quizqrafterdb
+    databaseName: quizqrafterdb
+    user: quizqrafter
+    plan: free
