@@ -4,11 +4,12 @@
     "private": true,
     "main": "dist/index.js",
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && prisma generate",
         "start": "node --env-file-if-exists=.env dist/index.js",
         "dev": "node --import=tsx --env-file-if-exists=.env src/index.ts",
         "check-types": "tsc --noEmit",
         "prisma:deploy": "prisma migrate deploy",
+        "prestart": "prisma migrate deploy",
         "predev": "prisma migrate deploy && prisma generate"
     },
     "dependencies": {

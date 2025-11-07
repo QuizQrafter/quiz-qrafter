@@ -5,6 +5,7 @@
         "//#format-and-lint:fix": {
             "cache": false
         },
+        "start": {},
         "build": {
             "outputs": [
                 "dist/**"
