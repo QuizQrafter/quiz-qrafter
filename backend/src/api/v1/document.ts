@@ -29,16 +29,18 @@ router.post(
         return res.status(401 /* Unauthorized */);
       }
 
+      if (!req.file) return res.status(400);
+
       const {
         originalname: originalFileName,
         buffer,
         size,
         mimetype,
-      } = req.file!;
+      } = req.file;
 
       // Transcribe document
       const client = new DocumentProcessorServiceClient({
-        keyFile: GOOGLE_APPLICATION_CREDENTIALS!,
+        keyFile: GOOGLE_APPLICATION_CREDENTIALS,
       });
       const [result] = await client.processDocument({
         name: `projects/${GCLOUD_PROJECT_ID}/locations/${GCLOUD_LOCATION}/processors/${GCLOUD_DOCUMENT_PROCESSOR_ID}`,
@@ -50,7 +52,7 @@ router.post(
       const document = result.document?.text ?? "";
 
       // Upload raw document and transcripted file to bucket
-      const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS! });
+      const storage = new Storage({ keyFile: GOOGLE_APPLICATION_CREDENTIALS });
       const bucket = storage.bucket("quizqrafter-documents");
       const rawFile = bucket.file(`u${userId}-${originalFileName}`);
       const transcriptedFile = bucket.file(`${rawFile.name}.transcript`);
